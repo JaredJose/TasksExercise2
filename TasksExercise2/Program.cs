@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace TasksExercise2
 {
@@ -22,7 +23,6 @@ namespace TasksExercise2
             var avgAwaiter = sum.GetAwaiter();
             var diffAwaiter = sum.GetAwaiter();
 
-            //Console.WriteLine("Task Exercise");
 
             maxAwaiter.OnCompleted(() =>
             {
@@ -92,6 +92,10 @@ namespace TasksExercise2
                 difference = max - min;
                 Console.WriteLine("Difference of Max/Min: " + difference);
             });
+
+            Task.WaitAll(sum);
+            Console.WriteLine("Waiting Complete");
+            Console.ReadLine();
         }
 
         static async Task<List<int>> processList(List<List<int>> masterList)
@@ -109,6 +113,7 @@ namespace TasksExercise2
                     retList.Add(sum);
                     sum = 0;
                 }
+                Thread.Sleep(5000);
                 return retList;
             });
 
